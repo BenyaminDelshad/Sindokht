@@ -6,7 +6,7 @@ from hazm import *
 # /home/benyamin/Desktop/Sindokht/Docs/test.txt
 
 def process(filename):
-    filename = '/home/benyamin/Desktop/Sindokht/Docs/test.txt'
+    filename = '../Docs/test.txt'
     tmp = open(filename, 'r').read()
     s = unicode(tmp, "utf-8")
     print type(s)
