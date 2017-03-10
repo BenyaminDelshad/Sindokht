@@ -11,6 +11,7 @@ def next_word(text, N, counts):
     """ Outputs the next word to add by using most recent tokens """
 
     token_seq = SEP.join(text.split()[-(N-1):])
+
     choices = counts[token_seq].items()
 
     # make a weighted choice for the next_token
@@ -24,26 +25,18 @@ def next_word(text, N, counts):
     assert False
 
 
-def gengram_sentence(corpus, N=4, sentence_count=10, start_seq=None):
+def gengram_sentence(corpus, tokens, N=4, sentence_count=10, start_seq=None):
     """ Generate a random sentence based on input text corpus """
 
-    ngrams = make_ngrams(corpus.split(SEP), N)
+    ngrams = make_ngrams(tokens, N)
     counts = ngram_freqs(ngrams)
+
+    #if start_seq is None:
+     #  sent_list = sent_tokenize(corpus)
 
     if start_seq is None: start_seq = random.choice(counts.keys());
-    rand_text = start_seq.lower()
-
+    rand_text = start_seq
     sentences = 0
-
-    for n in range(1, N):
-        ngrams = make_ngrams(corpus.split(SEP), n)
-        counts = ngram_freqs(ngrams)
-
-        rand_text += SEP + next_word(rand_text, n, counts)
-        sentences += 1 if rand_text.endswith((u'.',u'!', u'؟')) else 0
-
-    ngrams = make_ngrams(corpus.split(SEP), N)
-    counts = ngram_freqs(ngrams)
 
     while sentences < sentence_count:
         rand_text += SEP + next_word(rand_text, N, counts)
@@ -56,7 +49,9 @@ def gengram_sentence(corpus, N=4, sentence_count=10, start_seq=None):
 if __name__ == "__main__":
     f = raw_input("Enter input story address:\n")
     corpus = TextNormalizer(f)
-    story = gengram_sentence(corpus)
+    tokens = TextTokenizer(f)
+
+    story = gengram_sentence(corpus, tokens)
     out = open('Story.txt', 'w')
     out.write(story.encode('utf8'))
     out.close()
