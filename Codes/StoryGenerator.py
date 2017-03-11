@@ -3,25 +3,40 @@
 import random
 from Tokenizer import *
 from FreqsCalculator import *
+from collections import *
 
-SEP = u' ' # token separator symbol
+SEP = u' '
+# token separator symbol
+
+def calculate_probs(tokens):
+    probs = ""
+    cnt = Counter()
+    for word in tokens:
+        cnt[word] += 1
+    for word in cnt:
+        probs += word.encode("utf-8") + '#' + str(cnt[word]) +'\n'
+    out = open('Prob.txt', 'w')
+    out.write(probs)
+    out.close()
 
 
 def next_word(text, N, counts):
     """ Outputs the next word to add by using most recent tokens """
-
+    # TODO
+    # chera aghel konad kari?‌:-?
     token_seq = SEP.join(text.split()[-(N-1):])
-
     choices = counts[token_seq].items()
 
     # make a weighted choice for the next_token
     # [see http://stackoverflow.com/a/3679747/2023516]
     total = sum(weight for choice, weight in choices)
+
     r = random.uniform(0, total)
     upto = 0
     for choice, weight in choices:
         upto += weight
-        if upto > r: return choice
+        if upto > r:
+            return choice
     assert False
 
 
@@ -30,11 +45,11 @@ def gengram_sentence(corpus, tokens, N=4, sentence_count=10, start_seq=None):
 
     ngrams = make_ngrams(tokens, N)
     counts = ngram_freqs(ngrams)
+#    if start_seq is None:
+#     sent_list = sent_tokenize(corpus)
 
-    #if start_seq is None:
-     #  sent_list = sent_tokenize(corpus)
-
-    if start_seq is None: start_seq = random.choice(counts.keys());
+    if start_seq is None:
+        start_seq = random.choice(counts.keys());
     rand_text = start_seq
     sentences = 0
 
@@ -47,10 +62,13 @@ def gengram_sentence(corpus, tokens, N=4, sentence_count=10, start_seq=None):
 
 
 if __name__ == "__main__":
-    f = raw_input("Enter input story address:\n")
-    corpus = TextNormalizer(f)
-    tokens = TextTokenizer(f)
 
+    stories = ["darenshon1.txt", "darenshon2.txt", "johnathan.txt", "mazrae-heyvanate-2.txt", "sinohe.txt"]
+#   f = raw_input("Enter input story address:\n")
+#
+    corpus = TextNormalizer(r"../Docs/sinohe.txt")
+    tokens = TextTokenizer(r"../Docs/sinohe.txt")
+    calculate_probs(tokens)
     story = gengram_sentence(corpus, tokens)
     out = open('Story.txt', 'w')
     out.write(story.encode('utf8'))
