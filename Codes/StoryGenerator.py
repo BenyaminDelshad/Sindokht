@@ -26,7 +26,6 @@ def next_word(text, N, counts):
     # chera aghel konad kari?‌:-?
     token_seq = SEP.join(text.split()[-(N-1):])
     choices = counts[token_seq].items()
-
     # make a weighted choice for the next_token
     # [see http://stackoverflow.com/a/3679747/2023516]
     total = sum(weight for choice, weight in choices)
@@ -40,7 +39,7 @@ def next_word(text, N, counts):
     assert False
 
 
-def gengram_sentence(corpus, tokens, N=4, sentence_count=10, start_seq=None):
+def gengram_sentence(corpus, tokens, N=2, sentence_count=20, start_seq=None):
     """ Generate a random sentence based on input text corpus """
 
     ngrams = make_ngrams(tokens, N)
@@ -66,8 +65,8 @@ if __name__ == "__main__":
     stories = ["darenshon1.txt", "darenshon2.txt", "johnathan.txt", "mazrae-heyvanate-2.txt", "sinohe.txt"]
 #   f = raw_input("Enter input story address:\n")
 #
-    corpus = TextNormalizer(r"../Docs/sinohe.txt")
-    tokens = TextTokenizer(r"../Docs/sinohe.txt")
+    corpus = TextNormalizer(r"../Docs/johnathan.txt")   
+    tokens = TextTokenizer(r"../Docs/johnathan.txt")
     calculate_probs(tokens)
     story = gengram_sentence(corpus, tokens)
     out = open('Story.txt', 'w')

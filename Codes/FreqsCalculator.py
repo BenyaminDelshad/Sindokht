@@ -33,5 +33,7 @@ def ngram_freqs(ngrams):
             counts[token_seq][last_token] = 0
 
         counts[token_seq][last_token] += 1
-
+        if last_token == ".":
+            counts[token_seq][last_token] *= 20
+            print counts[token_seq][last_token]
     return counts
