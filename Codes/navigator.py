@@ -1,27 +1,36 @@
 # -*- coding: utf-8 -*-
 import pyttsx
 
-story = open("Story.txt", "r")
-s = story.read()
 
-def onWord(name, location, length):
-   print 'word', name, location, length
-   if location > 10:
-      engine.stop()
+def tell_story():
+    story = open("Story.txt", "r")
+    s = story.read()
+    s += '.'
 
-engine = pyttsx.init()
-voices = engine.getProperty('voices')
-rate = engine.getProperty('rate')
-for v in voices:
-    print v.id
-engine.setProperty('rate', rate-100)
-engine.setProperty('voice', 'persian')
 
-print s
+    #def onWord(name, location, length):
+    #   print 'word', name, location, length
+    #   if location > 10:
+    #      engine.stop()
 
-engine.say(s.decode("utf-8", errors = "ignore"))
+    engine = pyttsx.init()
+    voices = engine.getProperty('voices')
+    rate = engine.getProperty('rate')
+    #for v in voices:
+    #    print v.id
+    engine.setProperty('rate', rate-100)
+    engine.setProperty('voice', 'persian')
 
-engine.say("سلام سلام خاله بزغاله".decode("utf-8", errors = "ignore"))
+    print s
+    # story text!
 
-engine.runAndWait()
+    sentence = ""
 
+    for c in s:
+        if (c != '.'):
+            sentence += c
+        else:
+            engine.say(sentence.decode("utf-8", errors = "ignore"))
+            sentence = ""
+
+    engine.runAndWait()

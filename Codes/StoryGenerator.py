@@ -4,6 +4,7 @@ import random
 from Tokenizer import *
 from FreqsCalculator import *
 from collections import *
+from navigator import *
 
 SEP = u' '
 # token separator symbol
@@ -77,3 +78,4 @@ if __name__ == "__main__":
     out = open('Story.txt', 'w')
     out.write(story.encode('utf8'))
     out.close()
+    tell_story()
