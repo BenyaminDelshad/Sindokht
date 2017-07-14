@@ -44,7 +44,7 @@ def next_word(text, N, counts):
         assert False
 
 
-def gengram_sentence(corpus, tokens, N=5, sentence_count=20, start_seq=None):
+def gengram_sentence(corpus, tokens, N=4, sentence_count=20, start_seq=None):
     """ Generate a random sentence based on input text corpus """
 
     ngrams = make_ngrams(tokens, N)
@@ -83,4 +83,14 @@ if __name__ == "__main__":
     out = open('Story.txt', 'w')
     out.write(story.encode('utf8'))
     out.close()
-    tell_story()
+    #tell_story()
+    read_story("یکی بود یکی نبود، غیر از خدای مهربون هیچ کس نبود. ".decode("utf-8", errors = "ignore"))
+    sentence = ""
+    for word in story:
+        if word != '.' and word != u'.' and word != u'،' and word != u':' and word != u'؟' and word != u'!':
+            sentence += word
+        else:
+            read_story(sentence)
+            sentence = ""
+    read_story("قصه ی ما به سر رسید. کلاغ به خونه اش نرسید. ".decode("utf-8", errors="ignore"))
+    

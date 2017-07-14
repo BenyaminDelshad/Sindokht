@@ -1,36 +1,35 @@
 # -*- coding: utf-8 -*-
-import pyttsx
+import json
+import requests
+from subprocess import call
 
 
-def tell_story():
-    story = open("Story.txt", "r")
-    s = story.read()
-    s += '.'
+#story = "سلام".decode("utf-8", errors = "ignore")
 
+def read_story(story):
+    #story = story1.decode("utf-8", errors = "ignore")
 
-    #def onWord(name, location, length):
-    #   print 'word', name, location, length
-    #   if location > 10:
-    #      engine.stop()
+    data = {
+        "Text": story,
+        "Speaker":"Female1",
+        "PitchLevel":"0",
+        "PunctuationLevel":"0",
+        "SpeechSpeedLevel":"0",
+        "ToneLevel":"0",
+        "GainLevel":"0",
+        "BeginningSilence":"5",
+        "EndingSilence":"0",
+        "Format":"mp3/32/m",
+        "APIKey":"CSHTMX03HCT7JJ7"
+    }
 
-    engine = pyttsx.init()
-    voices = engine.getProperty('voices')
-    rate = engine.getProperty('rate')
-    #for v in voices:
-    #    print v.id
-    engine.setProperty('rate', rate-100)
-    engine.setProperty('voice', 'persian')
+    #req = urllib2.Request('http://api.farsireader.com/ArianaCloudService/ReadText')
+    headers = {'Content-Type': 'application/json'}
 
-    print s
-    # story text!
+    #response = urllib2.urlopen(req, json.dumps(data), timeout=200)
+    response = requests.post('http://api.farsireader.com/ArianaCloudService/ReadText', data=json.dumps(data), headers=headers, timeout=120)
 
-    sentence = ""
+    with open('story.wav', 'wb') as output:
+        output.write(bytearray(response.content))
 
-    for c in s:
-        if (c != '.'):
-            sentence += c
-        else:
-            engine.say(sentence.decode("utf-8", errors = "ignore"))
-            sentence = ""
-
-    engine.runAndWait()
+    call(["mpg123", "story.wav"])
