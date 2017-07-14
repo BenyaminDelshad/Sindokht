@@ -9,3 +9,5 @@ Docs: Contains some sample stories for input.
 Codes: Contains python files for this project.   
 prob.txt: Contains Frequencies (form: word #prob).  
 Report.pdf: Contains reports of phase 1 of project.  
+just run StoryGenerator.py ans listen to the story ...   
+

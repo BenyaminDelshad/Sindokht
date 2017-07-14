@@ -1,0 +1,219 @@
+Nonterminals useless in grammar
+
+   SENT
+   NSINGLESUB
+   NMULTISUB
+   NCON
+   NSINGGOZARE
+   NMULTIGOZARE
+   NMOSNAD
+   NMAFOOL
+   NRABTI
+   NRABET
+   NSINGV
+   NMULTIV
+   NADV
+
+
+Terminals unused in grammar
+
+   N_PL
+   V_PA
+   CON
+   ADJ
+   ADJ_CMPR
+   ADJ_INO
+   ADJ_SUP
+   PRO
+   P
+   CLITIC
+   V_SA
+   V_SP
+   V_SM
+   V_PM
+   V_PP
+   V_PRS
+   ADV_TIME
+   ADV
+   ADV_LOC
+   ADV_I
+   ADV_INO
+   ADV_NEG
+   ADV_COMP
+   DELM
+   DET
+   NUM
+   V_AUX
+   V_IMP
+   pi
+   V_SUB
+
+
+Rules useless in grammar
+
+    2 SENT: NSINGLESUB NSINGGOZARE
+    3     | NSINGGOZARE
+    4     | NMULTIGOZARE
+    5     | NMULTISUB NMULTIGOZARE
+
+    6 NSINGLESUB: PRO N_SING ADJ PRO ADJ
+    7           | PRO N_SING ADJ PRO
+    8           | PRO N_SING ADJ
+    9           | PRO N_SING PRO ADJ
+   10           | N_SING ADJ PRO ADJ
+   11           | N_SING ADJ PRO
+   12           | N_SING ADJ
+   13           | N_SING
+   14           | PRO
+
+   15 NMULTISUB: PRO N_PL ADJ PRO ADJ
+   16          | PRO N_PL ADJ PRO
+   17          | PRO N_PL ADJ
+   18          | N_PL ADJ PRO ADJ
+   19          | N_PL ADJ PRO
+   20          | N_PL ADJ
+   21          | N_PL
+   22          | NSINGLESUB NCON
+   23          | NMULTISUB NCON
+
+   24 NCON: CON NMULTISUB
+   25     | CON NSINGLESUB
+   26     | CON
+
+   27 NSINGGOZARE: NMAFOOL NSINGV NRABET
+   28            | NMOSNAD NSINGV NRABET
+   29            | NRABTI NSINGV NRABET
+   30            | NMAFOOL NSINGV
+   31            | NSINGV NRABET
+   32            | NMOSNAD NSINGV
+   33            | NRABTI NSINGV
+   34            | NSINGV
+   35            | V_PRS
+
+   36 NMULTIGOZARE: NMAFOOL NMULTIV NRABET
+   37             | NMOSNAD NMULTIV NRABET
+   38             | NRABTI NMULTIV NRABET
+   39             | NMOSNAD NMULTIV
+   40             | NRABTI NMULTIV
+   41             | NMAFOOL NMULTIV
+   42             | NMULTIV
+   43             | NMULTIV NRABET
+
+   44 NMOSNAD: NSINGLESUB
+   45        | NMULTISUB
+   46        | ADJ
+
+   47 NMAFOOL: NSINGLESUB CLITIC
+   48        | NMULTISUB CLITIC
+
+   49 NRABTI: P NSINGLESUB
+   50       | P NMULTISUB
+
+   51 NRABET: CON SENT
+
+   52 NSINGV: NADV V_SA
+   53       | NADV V_SP
+   54       | NADV V_SM
+   55       | V_SA
+   56       | V_SP
+   57       | V_SM
+   58       | V_PRS
+
+   59 NMULTIV: NADV V_PA
+   60        | NADV V_PP
+   61        | NADV V_PM
+   62        | V_PA
+   63        | V_PP
+   64        | V_PM
+   65        | V_PRS
+
+   66 NADV: ADJ ADV_TIME V_PM
+   67     | ADJ ADV V_PM
+   68     | ADJ ADV_LOC V_PM
+   69     | ADJ ADV_I V_PM
+   70     | ADV_TIME
+   71     | ADV
+   72     | ADV_LOC
+   73     | ADV_I
+
+
+Grammar
+
+    0 $accept: S $end
+
+    1 S: N_SING
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+N_SING (258) 1
+N_PL (259)
+V_PA (260)
+CON (261)
+ADJ (262)
+ADJ_CMPR (263)
+ADJ_INO (264)
+ADJ_SUP (265)
+PRO (266)
+P (267)
+CLITIC (268)
+V_SA (269)
+V_SP (270)
+V_SM (271)
+V_PM (272)
+V_PP (273)
+V_PRS (274)
+ADV_TIME (275)
+ADV (276)
+ADV_LOC (277)
+ADV_I (278)
+ADV_INO (279)
+ADV_NEG (280)
+ADV_COMP (281)
+DELM (282)
+DET (283)
+NUM (284)
+V_AUX (285)
+V_IMP (286)
+pi (287)
+V_SUB (288)
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+S (35)
+    on left: 1, on right: 0
+
+
+State 0
+
+    0 $accept: . S $end
+
+    N_SING  shift, and go to state 1
+
+    S  go to state 2
+
+
+State 1
+
+    1 S: N_SING .
+
+    $default  reduce using rule 1 (S)
+
+
+State 2
+
+    0 $accept: S . $end
+
+    $end  shift, and go to state 3
+
+
+State 3
+
+    0 $accept: S $end .
+
+    $default  accept
