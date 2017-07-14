@@ -53,7 +53,12 @@ def gengram_sentence(corpus, tokens, N=5, sentence_count=20, start_seq=None):
 #     sent_list = sent_tokenize(corpus)
 
     if start_seq is None:
-        start_seq = random.choice(counts.keys())
+        startngram = []
+        for i in range(len(tokens) - N + 1):
+            if i - 1 >= 0 and (tokens[i - 1] == '.' or tokens[i - 1] == '!' or tokens[i - 1] == u'.' or tokens[i - 1] == u'!' or tokens[i - 1] == u'؟'):
+                startngram.append(SEP.join(tokens[i:i + N]))
+        start_seq = random.choice(startngram)
+        #start_seq = random.choice(counts.keys())
     rand_text = start_seq
     sentences = 0
 
