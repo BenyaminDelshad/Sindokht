@@ -44,7 +44,7 @@ def next_word(text, N, counts):
         assert False
 
 
-def gengram_sentence(corpus, tokens, N=4, sentence_count=20, start_seq=None):
+def gengram_sentence(corpus, tokens, N=3, sentence_count=10, start_seq=None):
     """ Generate a random sentence based on input text corpus """
 
     ngrams = make_ngrams(tokens, N)
@@ -73,24 +73,24 @@ def gengram_sentence(corpus, tokens, N=4, sentence_count=20, start_seq=None):
 
 if __name__ == "__main__":
 
-    stories = ["darenshon1.txt", "darenshon2.txt", "johnathan.txt", "mazrae-heyvanate-2.txt", "sinohe.txt"]
+    stories = ["kids.txt", "darenshon1.txt", "darenshon2.txt", "johnathan.txt", "mazrae-heyvanate-2.txt", "sinohe.txt"]
 #   f = raw_input("Enter input story address:\n")
 #
-    corpus = TextNormalizer(r"../Docs/mazrae-heyvanate-2.txt")
-    tokens = TextTokenizer(r"../Docs/mazrae-heyvanate-2.txt")
+    corpus = TextNormalizer(r"../Docs/kids.txt")
+    tokens = TextTokenizer(r"../Docs/kids.txt")
     calculate_probs(tokens)
     story = gengram_sentence(corpus, tokens)
     out = open('Story.txt', 'w')
     out.write(story.encode('utf8'))
     out.close()
     #tell_story()
+
     read_story("یکی بود یکی نبود، غیر از خدای مهربون هیچ کس نبود. ".decode("utf-8", errors = "ignore"))
     sentence = ""
     for word in story:
-        if word != '.' and word != u'.' and word != u'،' and word != u':' and word != u'؟' and word != u'!':
+        if word != '.' and word != u'.' and word != u':' and word != u'؟' and word != u'!':
             sentence += word
         else:
             read_story(sentence)
             sentence = ""
     read_story("قصه ی ما به سر رسید. کلاغ به خونه اش نرسید. ".decode("utf-8", errors="ignore"))
-    
