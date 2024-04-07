@@ -1,5 +1,5 @@
-		# Sindokht
-Sindokht is rostam's grandma and she tells us stories.    
+# Sindokht
+Sindokht is Rostam's grandma and she tells us stories.    
 
 This program generate automatically a story in Persian using AI and N-grams and read it for you.
 
